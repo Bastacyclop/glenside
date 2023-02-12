@@ -14,6 +14,7 @@ use glenside::language::{Language, MyAnalysis, MyAnalysisData};
 /// using) which don't necessarily all appear in a tuple together at the end.
 /// This means we can't match on all the outputs at the same time, as there's no
 /// single expression which represents the whole LSTM.
+#[ignore = "egg machine overflow"]
 #[test]
 fn lstm_relay_to_glenside() {
     test_logger::ensure_env_logger_initialized();

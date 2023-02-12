@@ -3463,10 +3463,11 @@ pub fn concatenate_relay_to_glenside() -> RW {
 pub fn simplify_tuple_get_item() -> RW {
     struct SearcherImpl(Var);
     impl Searcher<Language, MyAnalysis> for SearcherImpl {
-        fn search_eclass(
+        fn search_eclass_with_limit(
             &self,
             egraph: &EGraph<Language, MyAnalysis>,
             eclass: Id,
+            limit: usize,
         ) -> Option<egg::SearchMatches<Language>> {
             let substs: Vec<Subst> = egraph[eclass]
                 .nodes
@@ -3489,6 +3490,7 @@ pub fn simplify_tuple_get_item() -> RW {
                         _ => None,
                     })
                 })
+                .take(limit)
                 .collect();
             if substs.is_empty() {
                 None
